@@ -37,17 +37,17 @@
 - 'mvn gatling:enterpriseStart'  :: command to upload the package to gatling enterprise cloud. 
   - The command will prompt for the below input
     -  Do you want to create a new simulation or start an existing one?
-    - Choose one simulation class in your package: <Enter your simulaton class name> 
-    -  Enter a simulation name : <The simulation will display on the Gatling Cloud. The same class can have different simulations>
-    -  Choose the load injectors region : <select the load region>
+    - Choose one simulation class in your package: [Enter your simulaton class name]
+    -  Enter a simulation name : [The simulation will display on the Gatling Cloud. The same class can have different simulations]
+    -  Choose the load injectors region :[select the load region]
+ 
+ ### Note: 
+  - the sample test script already have specified the duration of the tests and the number of constant virtual users. But these can be overwritten while generating the package and uploading to Gatling Cloud. 
+  - Existing simulations can be found here: https://cloud.gatling.io/o/gp/simulations
 
-### Note: 
-- the sample test script already have specified the duration of the tests and the number of constant virtual users. But these can be overwritten while generating the package and uploading to Gatling Cloud. 
-- Existing simulations can be found here: https://cloud.gatling.io/o/gp/simulations
-
-### Reference documents:
-- https://gatling.io/docs/gatling/reference/current/http/request/
-- https://gatling.io/docs/gatling/reference/current/extensions/maven_plugin/
+ ### Reference documents:
+ - https://gatling.io/docs/gatling/reference/current/http/request/
+ - https://gatling.io/docs/gatling/reference/current/extensions/maven_plugin/
 
 
 
