@@ -36,6 +36,7 @@ public class UserContextSimulation extends Simulation {
 
     public UserContextSimulation(){
         this.setUp(scenarioBuilder.injectOpen(constantUsersPerSec(10).during(Duration.ofMinutes(5)))).protocols(httpProtocolBuilder);
-
     }
+
+
 }
