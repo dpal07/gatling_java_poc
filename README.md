@@ -41,7 +41,6 @@
     -  Enter a simulation name : <The simulation will display on the Gatling Cloud. The same class can have different simulations>
     -  Choose the load injectors region : <select the load region>
 
-
 ### Note: 
 - the sample test script already have specified the duration of the tests and the number of constant virtual users. But these can be overwritten while generating the package and uploading to Gatling Cloud. 
 - Existing simulations can be found here: https://cloud.gatling.io/o/gp/simulations
