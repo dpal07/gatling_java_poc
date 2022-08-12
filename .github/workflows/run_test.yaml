@@ -27,7 +27,4 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Run gatling tests
-        uses: liatrio/run-gatling@v1.2.0
-        with:
-          pomPath: 'gatling_java_poc/pom.xml'
-          simulationClass: 'com.gp.gatling.UserContextSimulation'
+        run : ./scripts/start_simulation.sh https://cloud.gatling.io .vfelccKq8oOVIEN2XZ_MzSmHwOS7.0Am0EvzfUMoC9dsmcldGcFuDplpc1pGj5sN 43f77d06-f3b4-4f09-8034-b2af792169ed
