@@ -27,8 +27,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Run gatling tests
-        uses: actions/checkout@v1
+        uses: liatrio/run-gatling@v1.2.0
         with:
-          javaVersion: '17.0.4'
           pomPath: 'gatling_java_poc/pom.xml'
           simulationClass: 'com.gp.gatling.UserContextSimulation'
