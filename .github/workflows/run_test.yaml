@@ -19,9 +19,6 @@ jobs:
     name: build and install env
     runs-on: ubuntu-latest
     steps:
-      - name: Set environment
-        env:
-          defaultEnv: 'staging'
       # checkout project to runner
       - name: Checkout
         uses: actions/checkout@v1
