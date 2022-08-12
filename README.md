@@ -40,6 +40,8 @@
     - Choose one simulation class in your package: [Enter your simulaton class name]
     -  Enter a simulation name : [The simulation will display on the Gatling Cloud. The same class can have different simulations]
     -  Choose the load injectors region :[select the load region]
+- Run 'sh scripts/run-sqs-script.sh' to run the sqs test script. 
+
  
  ### Note: 
   - the sample test script already have specified the duration of the tests and the number of constant virtual users. But these can be overwritten while generating the package and uploading to Gatling Cloud. 
