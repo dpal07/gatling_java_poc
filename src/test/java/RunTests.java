@@ -1,5 +1,3 @@
-package com.gp.gatling;
-
 import io.gatling.app.Gatling;
 import io.gatling.core.config.GatlingPropertiesBuilder;
 

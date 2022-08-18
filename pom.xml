@@ -26,7 +26,16 @@
       <version>${gatling.version}</version>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+      <groupId>io.gatling</groupId>
+      <artifactId>gatling-app</artifactId>
+      <version>${gatling.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.gatling</groupId>
+      <artifactId>gatling-maven-plugin</artifactId>
+      <version>${gatling-maven-plugin.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>amazon-sqs-java-messaging-lib</artifactId>
@@ -55,7 +64,10 @@
           <artifactId>gatling-maven-plugin</artifactId>
           <version>${gatling-maven-plugin.version}</version>
           <configuration>
-            <apiToken>.vfelccKq8oOVIEN2XZ_MzSmHwOS7.0Am0EvzfUMoC9dsmcldGcFuDplpc1pGj5sN</apiToken>
+            <runMultipleSimulations>true</runMultipleSimulations>
+            <excludes>
+              <exclude>PricingServiceSqs*</exclude>
+            </excludes>
           </configuration>
         </plugin>
     </plugins>
