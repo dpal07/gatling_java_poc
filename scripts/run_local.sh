@@ -1,42 +1,71 @@
 #!/bin/bash
-GATLING_VERSION=3.8.2
+CLASS=$1
+CONTAINER_NAME="docker-gatling-container"
+IMAGE_NAME="gp/docker-gatling"
 
-# Remove old Gatling reports and version Download New
-echo "======== Remove old Gatling Snapshot if already exist ========== "
-echo "*********************************\n "
-rm -rf gatling-charts-highcharts-bundle-${GATLING_VERSION}/
-rm -rf gatling-${GATLING_VERSION}.zip/
 
-echo "======== Downloading Gatling Framework from Web ========== "
-echo "*********************************\n "
-echo "========Please be patient as it might take some time depending on the network speed ========\n"
-curl -sf -o gatling-${GATLING_VERSION}.zip \
-  -L https://repo1.maven.org/maven2/io/gatling/highcharts/gatling-charts-highcharts-bundle/${GATLING_VERSION}/gatling-charts-highcharts-bundle-${GATLING_VERSION}-bundle.zip
-ls
-echo "======== Gatling Zip successfully downloaded ========== "
-echo "*********************************\n "
+function check_image_exist {
+  echo -e "\n*** Checking if docker image exists for the web-scraper... ***\n"
 
-echo "======== Unziping Gatling ========== "
-echo "*********************************\n "
-unzip gatling-${GATLING_VERSION}.zip
+  if docker images | grep -w ${IMAGE_NAME}
+  then
+  echo -e "\n*** Image already exists. We can run container... ***\n"
 
-chmod +x gatling-charts-highcharts-bundle-${GATLING_VERSION}/bin/gatling.sh
- # Set GATLING_HOME
+  else
+  build_image
+  fi
+}
 
-export GATLING_HOME=gatling-charts-highcharts-bundle-${GATLING_VERSION}
+function delete_old_reports {
+rm -rf results/
+docker exec $CONTAINER_NAME rm -rf /opt/gatling/results/*
+}
 
-# Remove default simulations and Config and add our own
+function build_image {
 
-echo "======== Removing the default Simulations and replacing with our own \n ========== "
-echo "*********************************\n "
+  echo -e "\n*** Building the image ***\n"
+   docker build -t ${IMAGE_NAME} .
+   echo -e "\n*** Finished building the image ***\n"
 
-rm -rf gatling-charts-highcharts-bundle-${GATLING_VERSION}/user-files/
-rm -rf gatling-charts-highcharts-bundle-${GATLING_VERSION}/conf
-cp -rf user-files/ gatling-charts-highcharts-bundle-${GATLING_VERSION}/user-files/
-cp -rf config/ gatling-charts-highcharts-bundle-${GATLING_VERSION}/config
+}
 
-# RUN Gatling TEST WITH CLASS CLASS/TEST SCENARIO SPECIFIED
+function check_container_exist {
 
-echo "======== Running Gatling Performance/Load Test \n ========== "
-echo "*********************************\n "
-sh gatling-charts-highcharts-bundle-${GATLING_VERSION}/bin/gatling.sh -sf gatling-charts-highcharts-bundle-${GATLING_VERSION}/src/test/java/com/gp/gatling/ -s UserContextSimulation
+   echo -e "\n *** Deleting old unused containers"
+
+   docker rm $(docker ps -a | grep 'docker-gatling-container' | awk '{print $3}')
+
+  echo -e "\n*** Checking if the container exists ***\n"
+
+    if docker ps -a | grep ${CONTAINER_NAME}
+    then
+        echo -e "\n*** Container already exists ***\n"
+        docker start ${CONTAINER_NAME}
+    else
+        echo -e "\n*** Running the container ***\n"
+        start_container_with_Gatling
+    fi
+}
+
+function start_container_with_Gatling {
+  docker run -it -d --rm -v conf:/opt/gatling/conf \
+  -v user-files:/opt/gatling/user-files \
+  -v results:/opt/gatling/results \
+  --name $CONTAINER_NAME $IMAGE_NAME
+}
+
+function stop_container {
+docker stop ${CONTAINER_NAME}
+}
+
+function run_gatling_test {
+docker run -it --rm --name ${CONTAINER_NAME} -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.8.3-openjdk-17 mvn clean gatling:test -Dgatling.simulationClass=UserContextSimulation
+
+}
+
+check_image_exist
+check_container_exist
+delete_old_reports
+start_container_with_Gatling
+run_gatling_test
+stop_container
