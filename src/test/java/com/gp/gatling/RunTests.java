@@ -9,7 +9,7 @@ public class RunTests {
 
         GatlingPropertiesBuilder propertiesBuilder = new GatlingPropertiesBuilder()
                 .resultsDirectory("/target")
-                .simulationClass(String.valueOf(PricingServiceSqsTest.class));
+                .simulationClass(String.valueOf(UserContextSimulation.class));
 
         Gatling.fromMap(propertiesBuilder.build());
     }
