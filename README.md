@@ -31,7 +31,7 @@
 
 - It's a simple java class with a simulation. The simulations can be called either from the simulation class constructor. While uploading the package to the Gatling cloud that time deserving simulation class can be mentioned in the commandline. 
 
-### Executing tests
+### Executing tests 
 
 - 'mvn gatling:enterprisePackage'  :: command to create the package. 
 - 'mvn gatling:enterpriseStart'  :: command to upload the package to gatling enterprise cloud. 
@@ -41,6 +41,10 @@
     -  Enter a simulation name : [The simulation will display on the Gatling Cloud. The same class can have different simulations]
     -  Choose the load injectors region :[select the load region]
 - Run 'sh scripts/run-sqs-script.sh' to run the sqs test script. 
+- Executing tests in local docker container:
+  - Run, sh scripts/run_local.sh, this will create the local docker container and then run the tests inside the container. 
+- Executing a test using maven command :
+  - mvn clean gatling:test -Dgatling.simulationClass=<simulation class name>
 
  
  ### Note: 
