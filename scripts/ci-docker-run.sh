@@ -65,8 +65,8 @@ docker exec ${CONTAINER_NAME} /opt/gatling/bin/gatling.sh -sf /opt/gatling/src/t
 
 
 check_image_exist
-#check_container_exist
-#delete_old_reports
+check_container_exist
+delete_old_reports
 start_container_with_Gatling
 run_gatling_test
 stop_container
