@@ -33,7 +33,7 @@ function check_container_exist {
 
    echo -e "\n *** Deleting old unused containers"
 
-   docker rm $(docker ps -a | grep 'docker-gatling-container' | awk '{print $3}')
+   docker rm $(docker ps -a | grep $CONTAINER_NAME | awk '{print $3}')
 
   echo -e "\n*** Checking if the container exists ***\n"
 
@@ -54,6 +54,17 @@ function start_container_with_Gatling {
   --name $CONTAINER_NAME $IMAGE_NAME
 }
 
+function add_newrelic_config_to_container {
+  docker run \
+    -d --restart unless-stopped \
+    --name newrelic-statsd \
+    -h $(hostname) \
+    -e NR_ACCOUNT_ID=1747307 \
+    -e NR_API_KEY="724c21f5196ada0de0bab03bc0225ba90863d273" \
+    -p 8125:8125/udp \
+    newrelic/nri-statsd:latest
+}
+
 function stop_container {
 docker stop ${CONTAINER_NAME}
 }
@@ -67,5 +78,6 @@ check_image_exist
 check_container_exist
 delete_old_reports
 start_container_with_Gatling
+add_newrelic_config_to_container
 run_gatling_test
 stop_container
