@@ -17,12 +17,12 @@ check_image_exist() {
 }
 
 
-function delete_old_reports {
+delete_old_reports() {
 rm -rf results/
 docker exec $CONTAINER_NAME rm -rf /opt/gatling/results/*
 }
 
-function build_image {
+build_image() {
 
   echo -e "\n*** Building the image ***\n"
    docker build -t ${IMAGE_NAME} .
@@ -30,7 +30,7 @@ function build_image {
 
 }
 
-function check_container_exist {
+check_container_exist() {
 
    echo -e "\n *** Deleting old unused containers"
 
@@ -48,14 +48,14 @@ function check_container_exist {
     fi
 }
 
-function start_container_with_Gatling {
+start_container_with_Gatling() {
   docker run -it -d --rm -v conf:/opt/gatling/conf \
   -v user-files:/opt/gatling/user-files \
   -v results:/opt/gatling/results \
   --name $CONTAINER_NAME $IMAGE_NAME
 }
 
-function add_newrelic_config_to_container {
+add_newrelic_config_to_container() {
   docker run \
     -d --restart unless-stopped \
     --name newrelic-statsd \
@@ -66,11 +66,11 @@ function add_newrelic_config_to_container {
     newrelic/nri-statsd:latest
 }
 
-function stop_container {
+stop_container() {
 docker stop ${CONTAINER_NAME}
 }
 
-function run_gatling_test {
+run_gatling_test() {
 docker run -it --rm --name ${CONTAINER_NAME} -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.8.3-openjdk-17 mvn clean gatling:test -Dgatling.simulationClass=UserContextSimulation
 
 }
