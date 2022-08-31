@@ -33,7 +33,7 @@ check_container_exist() {
 
    echo -e "\n *** Deleting old unused containers"
 
-   docker rm $(docker ps -a | grep 'docker-gatling-container' | awk '{print $3}')
+   docker rm $(docker ps -a | grep $CONTAINER_NAME | awk '{print $3}')
 
   echo -e "\n*** Checking if the container exists ***\n"
 
@@ -65,8 +65,8 @@ docker exec ${CONTAINER_NAME} /opt/gatling/bin/gatling.sh -sf /opt/gatling/src/t
 
 
 check_image_exist
-check_container_exist
-delete_old_reports
+#check_container_exist
+#delete_old_reports
 start_container_with_Gatling
 run_gatling_test
 stop_container
