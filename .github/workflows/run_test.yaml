@@ -24,4 +24,4 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Run gatling tests
-        run : sh /scripts/run_local.sh
+        run : sh scripts/run_local.sh
