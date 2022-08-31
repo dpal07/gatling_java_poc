@@ -7,14 +7,16 @@ IMAGE_NAME="gp/docker-gatling"
 function check_image_exist {
   echo -e "\n*** Checking if docker image exists for the web-scraper... ***\n"
 
-  if docker images | grep -w ${IMAGE_NAME}
+  if docker images | grep -w $(IMAGE_NAME)
   then
   echo -e "\n*** Image already exists. We can run container... ***\n"
 
   else
   build_image
   fi
+
 }
+
 
 function delete_old_reports {
 rm -rf results/
