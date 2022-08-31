@@ -79,6 +79,6 @@ check_image_exist
 check_container_exist
 delete_old_reports
 start_container_with_Gatling
-add_newrelic_config_to_container
+#add_newrelic_config_to_container
 run_gatling_test
 stop_container
