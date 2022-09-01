@@ -1,7 +1,7 @@
 #!/bin/bash
 CLASS=$1
 CONTAINER_NAME="docker-gatling-container"
-IMAGE_NAME="shashikant86/docker-gatling"
+IMAGE_NAME="denvazh/docker-gatling"
 
 
 check_image_exist() {
