@@ -1,1 +1,0 @@
-docker run -it --rm -v mvn gatling:test -Dgatling.simulationClass=UserContextSimulation -i denvazh/gatling run $1
